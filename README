@@ -3,5 +3,10 @@ This is a bash script of updating canna yubin7 dictionary .
 Read ./update-canna-yubin bash script .
 Please see also: http://lists.opensuse.org/opensuse-ja/2013-08/msg00106.html
 
+* How to get it .
+Sources:  git clone https://github.com/MItsutoshiNAKANO/update-canna-yubin
+tar ball: https://dl.dropboxusercontent.com/u/86335040/update-canna-yubin/update-canna-yubin-0.tar.gz
+
+
 * How to install it .
 Read ./INSTALL .
