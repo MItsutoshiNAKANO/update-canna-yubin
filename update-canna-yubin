@@ -1,0 +1,35 @@
+#! /bin/bash -e
+### Update canna yubin7 dictionary .
+export PATH='/bin:/usr/bin'
+## define japanpost information .
+domain='www.post.japanpost.jp'
+ken_all='ken_all'
+jigyosyo='jigyosyo'
+ken_all_url="http://$domain/zipcode/dl/kogaki/zip/$ken_all.zip"
+jigyosyo_url="http://$domain/zipcode/dl/jigyosyo/zip/$jigyosyo.zip"
+## define system environment information .
+canna_yubin_dir='/usr/share/canna-yubin-0.0.20011101/'
+canna_dic_dir='/var/lib/canna/dic/'
+canna_system_dic_dir="$canna_dic_dir/canna/"
+canna_user='wnn'
+workdir="/tmp/update-canna-yubin.$$/"
+
+trap "rm -r $workdir" EXIT
+mkdir "$workdir"
+cd "$workdir"
+wget "$ken_all_url" "$jigyosyo_url"
+unzip "$ken_all.zip"
+unzip "$jigyosyo.zip"
+mv 'KEN_ALL.CSV' 'ken_all.csv'
+mv 'JIGYOSYO.CSV' 'jigyosyo.csv'
+"$canna_yubin_dir/yu2can.pl" | nkf -Se >yubin7.ctd
+mkbindic -m yubin7.ctd
+
+echo "
+  install -m 644 yubin7.cbd yubin7.cld $canna_system_dic_dir
+  cd $canna_system_dic_dir
+  chown $canna_user:root yubin7.cbd yubin7.cld
+" | sudo sh -e
+echo 'Please reload canna .
+ex: /sbin/service canna reload'
+exit
