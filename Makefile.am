@@ -1,2 +1,2 @@
 #
-bin_PROGRAMS=update-canna-yubin
+bin_SCRIPTS=update-canna-yubin
