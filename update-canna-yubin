@@ -8,11 +8,33 @@ jigyosyo='jigyosyo'
 ken_all_url="http://$domain/zipcode/dl/kogaki/zip/$ken_all.zip"
 jigyosyo_url="http://$domain/zipcode/dl/jigyosyo/zip/$jigyosyo.zip"
 ## define system environment information .
-canna_yubin_dir='/usr/share/canna-yubin-0.0.20011101/'
-canna_dic_dir='/var/lib/canna/dic/'
-canna_system_dic_dir="$canna_dic_dir/canna/"
 canna_user='wnn'
 workdir="/tmp/update-canna-yubin.$$/"
+
+while getopts "c:" name
+do
+    case "x$name" in
+	'xc') canna_yubin_dir="$OPTARG";;
+	'x?')
+	    OPT_ERROR=1
+	    brealk ;;
+	*)
+	    echo "assert name=$name" >&2
+	    exit 127 ;;
+    esac
+done
+
+shift $(($OPTIND - 1))
+
+case "x$OPT_ERROR" in
+    'x1')
+	echo 'usage: update-canna-yubin [-c canna-yubin-dir] [canna_system_dic_dir]' >&2
+	exit 2 ;;
+esac
+
+canna_yubin_dir="${canna_yubin_dir-/usr/share/canna-yubin-0.0.20011101/}"
+canna_dic_dir='/var/lib/canna/dic/'
+canna_system_dic_dir="${1-$canna_dic_dir/canna/}"
 
 trap "rm -r $workdir" EXIT
 mkdir "$workdir"
