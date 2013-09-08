@@ -1,0 +1,41 @@
+.TH UPDATE-CANNA-YUBIN 1 08/Sep/2013
+.SH NAME
+update-canna-yubin \- update a postal code extension dictionary for Canna .
+.SH SYNOPSIS
+.B update-canna-yubin
+.RI [ -c\  canna-yubin-dir ]
+.RI [ output-dir ]
+.SH DESCRIPTION
+\fIupdate-canna-yubin\fP is a bash script for updating the postal code
+ extension dictionary for Canna .
+.PP
+The update-canna-yubin gets postal code data from http://www.post.japanpost.jp/zipcode/ .
+.PP
+After that, uptde-canna-yubin executes canna-yubin, makes yubin7 dictionary
+for Canna .
+For output a dictionary to output-dir, update-canna-yubin calls sudo .
+
+.TP
+.B \-c canna-yubin-dir
+directory of canna-yubin . \p
+default: /usr/share/canna-yubin-0.0.20011101/
+
+.TP
+.B output-dir
+output yubin7 dictionary to this directory . \p
+default: /var/lib/canna/dic/canna/
+
+.SH exit status
+success -> 0 . \p
+fail    -> others .
+
+.SH AUTHOR
+
+.nf
+	<bkbin005@rinku.zaq.ne.jp>
+.fi
+
+
+.SH BUGS
+
+The output-dir could not set a relative directory .

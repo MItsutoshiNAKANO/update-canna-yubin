@@ -1,0 +1,54 @@
+.TH UPDATE-CANNA-YUBIN 1 08/Sep/2013
+.SH NAME
+update-canna-yubin \- canna-yubin 辞書更新プログラム
+.SH SYNOPSIS
+.B update-canna-yubin
+.RI [ -c\  canna-yubin-dir ]
+.RI [ output-dir ]
+.SH DESCRIPTION
+\fIupdate-canna-yubin\fPはcannaの7桁郵便番号辞書を更新する。
+.PP
+update-canna-yubinはhttp://www.post.japanpost.jp/zipcode/から
+最新の郵便番号dataを取得する。
+.PP
+その後、canna-yubinに処理を渡し、yubin7辞書を生成する。\p
+output-dirに辞書を出力するためにsudoを呼び出し、root権を取得しようとする。
+.PP
+2013年9月現在までのところ、郵便番号dataは毎月月末に更新されている。\p
+毎月月初にrootユーザーでこのcommandをcron起動することによって、
+常に最新の郵便番号辞書を得られるだろう。
+.PP
+optionや引数を指定することはほとんど無いと思われる。
+
+.TP
+.B \-c canna-yubin-dir
+canna-yubinの存在するdirectory名を指定する。
+defaultでは/usr/share/canna-yubin-0.0.20011101/に\p
+canna-yubinがあることを仮定して動作する。
+
+.TP
+.B output-dir
+yubin7辞書を出力するdirectory名を指定する。
+defaultでは/var/lib/canna/dic/canna/に出力する。
+
+.SH 返却値
+成功終了すれば0を返す。
+何らかのエラーがあった場合にはそれ以外の値を返し、処理は中断される。
+
+
+.SH AUTHOR
+
+.nf
+	<bkbin005@rinku.zaq.ne.jp>
+.fi
+
+
+.SH 制限
+
+output-dirに相対pathを指定してはいけない。 \p
+予想外のdirectoryに辞書を出力しようとするだろう。
+
+.PP
+optionと引数の解析処理はいい加減である。
+想定外の入力があった場合には、
+不親切なエラーメッセージを表示して失敗終了するだろう。
